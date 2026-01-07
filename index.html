@@ -1,5 +1,844 @@
 <!DOCTYPE html>
-<html>
-<head><title>Test</title></head>
-<body><h1>Test Page - Works!</h1></body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coolers Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            background-color: #0a192f;
+        }
+        
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .seismic-wave {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+            opacity: 0;
+            animation: seismic-wave 8s infinite linear;
+        }
+        
+        .seismic-wave:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            border-color: rgba(231, 76, 60, 0.15);
+        }
+        
+        .seismic-wave:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+            border-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .seismic-wave:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            bottom: 10%;
+            left: 20%;
+            animation-delay: 4s;
+            border-color: rgba(231, 76, 60, 0.08);
+        }
+        
+        .seismic-wave:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 15%;
+            right: 25%;
+            animation-delay: 6s;
+            border-color: rgba(231, 76, 60, 0.12);
+        }
+        
+        .fault-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.3), transparent);
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.3;
+        }
+        
+        .tectonic-plate {
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            border-radius: 4px;
+            opacity: 0.1;
+            animation: tectonic-drift 60s infinite alternate ease-in-out;
+        }
+        
+        .tectonic-plate:nth-child(5) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .tectonic-plate:nth-child(6) {
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 30s;
+        }
+        
+        @keyframes seismic-wave {
+            0% {
+                transform: scale(0.1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes tectonic-drift {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(20px, 10px) rotate(0.5deg);
+            }
+        }
+        
+        /* Earthquake intensity dots */
+        .intensity-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(231, 76, 60, 0.6);
+            border-radius: 50%;
+            animation: intensity-pulse 3s infinite;
+        }
+        
+        @keyframes intensity-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Generate random intensity dots */
+        .intensity-dot:nth-child(7) { top: 30%; left: 15%; animation-delay: 0s; }
+        .intensity-dot:nth-child(8) { top: 40%; left: 70%; animation-delay: 0.5s; }
+        .intensity-dot:nth-child(9) { top: 70%; left: 40%; animation-delay: 1s; }
+        .intensity-dot:nth-child(10) { top: 20%; left: 60%; animation-delay: 1.5s; }
+        .intensity-dot:nth-child(11) { top: 80%; left: 20%; animation-delay: 2s; }
+        .intensity-dot:nth-child(12) { top: 50%; left: 80%; animation-delay: 2.5s; }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.9) 100%);
+            color: white;
+            padding: 30px 0;
+            border-bottom: 5px solid #e74c3c;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            margin-right: 15px;
+            color: #e74c3c;
+            animation: logo-shake 10s infinite;
+        }
+        
+        @keyframes logo-shake {
+            0%, 95%, 100% {
+                transform: translateX(0) rotate(0deg);
+            }
+            96% {
+                transform: translateX(2px) rotate(1deg);
+            }
+            97% {
+                transform: translateX(-1px) rotate(-1deg);
+            }
+            98% {
+                transform: translateX(1px) rotate(0.5deg);
+            }
+            99% {
+                transform: translateX(-0.5px) rotate(-0.5deg);
+            }
+        }
+        
+        .logo h1 {
+            font-size: 2.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            flex-wrap: wrap;
+            backdrop-filter: blur(5px);
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 20px 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            min-width: 150px;
+        }
+        
+        .tab:hover {
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+        
+        .tab.active {
+            color: #e74c3c;
+            border-bottom: 3px solid #e74c3c;
+            background-color: rgba(248, 249, 250, 0.7);
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            font-size: 2rem;
+        }
+        
+        .tab-content h3 {
+            color: #e74c3c;
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        .content-section {
+            margin-bottom: 30px;
+        }
+        
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .content-section ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .content-section li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Materials Grid */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .material-card {
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+        }
+        
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+        
+        .material-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        /* Team Section */
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .team-member {
+            background-color: rgba(248, 249, 250, 0.8);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c, #3498db);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Feelings & Struggles */
+        .feeling-box {
+            background-color: rgba(52, 152, 219, 0.08);
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .feeling-box:hover {
+            transform: translateX(5px);
+        }
+        
+        .struggle-box {
+            background-color: rgba(231, 76, 60, 0.08);
+            border-left: 4px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .struggle-box:hover {
+            transform: translateX(5px);
+        }
+        
+        /* Location Section */
+        .location-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .location-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .location-map {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            background-color: rgba(238, 238, 238, 0.7);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .map-animation {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .map-fault-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #e74c3c, transparent);
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            animation: fault-glow 3s infinite alternate;
+        }
+        
+        @keyframes fault-glow {
+            0% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+            }
+            100% {
+                opacity: 0.8;
+                box-shadow: 0 0 15px rgba(231, 76, 60, 0.8);
+            }
+        }
+        
+        .map-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+            animation: map-pulse 2s infinite;
+        }
+        
+        @keyframes map-pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .tab {
+                min-width: 120px;
+                padding: 15px 10px;
+                font-size: 1rem;
+            }
+            
+            .tab-content {
+                padding: 25px;
+            }
+            
+            .tab-content h2 {
+                font-size: 1.7rem;
+            }
+            
+            /* Reduce background animation on mobile for performance */
+            .seismic-wave, .tectonic-plate {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                flex-direction: column;
+            }
+            
+            .logo i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-bottom: 1px solid #eee;
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="seismic-wave"></div>
+        <div class="seismic-wave"></div>
+        <div class="seismic-wave"></div>
+        <div class="seismic-wave"></div>
+        <div class="tectonic-plate"></div>
+        <div class="tectonic-plate"></div>
+        <div class="intensity-dot"></div>
+        <div class="intensity-dot"></div>
+        <div class="intensity-dot"></div>
+        <div class="intensity-dot"></div>
+        <div class="intensity-dot"></div>
+        <div class="intensity-dot"></div>
+        <div class="fault-line"></div>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-earth-americas"></i>
+                <h1>The Coolers Project</h1>
+            </div>
+            <p class="tagline">Sec 1-M</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <div class="tab active" data-tab="about">About Project</div>
+            <div class="tab" data-tab="materials">Materials</div>
+            <div class="tab" data-tab="feelings">Feelings</div>
+            <div class="tab" data-tab="struggles">Struggles</div>
+            <div class="tab" data-tab="team">Our Team</div>
+        </div>
+        
+        <!-- About Project Tab -->
+        <div id="about" class="tab-content active">
+            <h2>How Our Earthquake Project Works</h2>
+            
+            <div class="content-section">
+                <h3>Project Overview</h3>
+                <p>Our project is based on:
+Tuned Mass Damper theory, Which uses a counterweight tuned to match the structure's sway, absorbing its motion.
+Newton’s Third Law, Seismic action forces generate equal reaction forces via inertial opposition.
+Seismic Energy Dissipation, Earthquake energy transforms into thermal energy through damping, preventing resonance damage.
+</p>
+            </div>
+            
+            <div class="content-section">
+                <h3>Working Mechanism</h3>
+                <p>This is how students will work with our project.:</p>
+                <ul>
+                    <li>The students will use a shake table to test different model buildings.</li>
+                    <li>They can change how strong the earthquake is.</li>
+                    <li>Students should watch closely which building wobbles, cracks, or falls over first.</li>
+                    <li>They will write down what happens to each building during the demonstration.</li>
+                    <li>At the end, we talk about why some buildings handles earthquakes better than others.</li>
+                </ul>
+                
+            </div>
+            
+            <div class="content-section">
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Uses Arduino Uno</li>
+                    <li>Easy and simple to understand</li>
+                    <li>Completely safe</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Materials Tab -->
+        <div id="materials" class="tab-content">
+            <h2>Main Materials Used in Our Project</h2>
+            
+            <div class="materials-grid">
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Arduino Uno</h3>
+                    <p>What makes our project work.</p>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h3>Accelerometer</h3>
+                    <p>Used along with our Arduino Uno to detect earthquakes.</p>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Alert Components</h3>
+                    <p>Buzzer for auditory alerts and LED lights for visual warnings, Also used along with our Arduino Uno.</p>
+                </div>
+                
+                <div class="material-card">
+                    <div class="material-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h3>Cardboard</h3>
+                    <p>Main thing used for the structure of the whole project.</p>
+                </div>
+            </div>
+        </div>
+        
+<!-- Feelings Tab -->
+<div id="feelings" class="tab-content">
+    <h2>How We Feel About This Project</h2>
+    
+    <div class="feeling-box">
+        <h3>We Really Liked Doing This Project</h3>
+        <p>Our whole team feels really great about finishing this project, and we all had a good time working on it from the start. The process was fun because we got to learn new things and try out our ideas, and it was cool to see something we talked about become real. We enjoyed figuring stuff out together and helping each other when someone was stuck, which made the whole thing more enjoyable and less like just regular school work.</p>
+        <p>Even though some parts were confusing or didn't work at first, we didn't get too stressed because we were doing it as friends. The best part was probably just hanging out and working together, talking about what to do next and celebrating the small wins. We’re all pretty proud of what we ended up with, and it feels good to have made something ourselves.</p>
+    </div>
+    
+    <div class="feeling-box">
+        <h3>We Got Through the Hard Parts Together</h3>
+        <p>It definitely wasn’t easy the whole time, we ran into alot of problems that made us have to think really hard. Sometimes the code wouldn’t work, or a piece of equipment broke, or we just couldn’t agree on what to do next. There were days where it felt like we weren’t getting anywhere and it was kinda frustrating.</p>
+        <p>But whenever things got tough, we made sure to concentrate and focus on fixing it as a group. Instead of getting mad or giving up, we talked it out and tried different ideas until something worked. Working together like that made the hard stuff easier to deal with, and in the end, it made finishing the project feel even better because we know we earned it. We learned that if you stick together and keep trying, you can figure out almost anything.</p>
+    </div>
+</div>
+        
+<!-- Struggles Tab -->
+<div id="struggles" class="tab-content">
+    <h2>Challenges & Struggles We Faced</h2>
+    
+    <div class="struggle-box">
+        <h3>We Couldn't Find the Stuff We Needed</h3>
+        <p>First big problem was getting the parts. Alot of times the things we needed to buy was sold out or cost to much money. This made it hard to start building. We needed to figure out what to do instead and change our plans.</p>
+    </div>
+    
+    <div class="struggle-box">
+        <h3>Our Wiring Kept Messing Up</h3>
+        <p>The electrical stuff was really tricky. Wires wouldn't connect good and sometimes things just stopped working for no reason. It took us a long time to find where the problem was at and fix it. We had to check everything one by one.</p>
+    </div>
+    
+    <div class="struggle-box">
+        <h3>It Was Hard Getting Places and Moving Things</h3>
+        <p>Getting everyone together was tough because we all live in different places. Also moving our project stuff from someone's house to the school was a hassle. We was often late or forgot to bring important pieces.</p>
+    </div>
+    
+    <div class="struggle-box">
+        <h3>How We Fixed Everything</h3>
+        <p>We got past all of this by working as a team and making good plans. For the missing parts, we made a super detailed list of what we actually needed. For the wiring, we all looked at it together until we seen the mistake. And for the transportation, we made a schedule so we all knew who was bringing what and when to meet. By managing our time good and helping eachother, we finally got our project to work.</p>
+    </div>
+</div>        
+        <!-- Team & Location Tab -->
+        <div id="team" class="tab-content">
+            <h2>Our Team</h2>
+            
+            <div class="content-section">
+                <h3>Group Name: The Coolers</h3>
+                <p>We are a multidisciplinary team of engineering and geoscience students passionate about applying technology to solve real-world problems in natural disaster preparedness.</p>
+            </div>
+            
+            <div class="team-container compact">
+    <div class="team-member">
+        <h3>Thuta Lwin <span class="role">(Leader)</span></h3>
+        <p class="contribution">Helped with everything!</p>
+    </div>
+    
+    <div class="team-member">
+        <h3>Kaung Htut Naing</h3>
+        <p class="contribution">Created website</p>
+    </div>
+    
+    <div class="team-member">
+        <h3>Thant Wai Yan Htet</h3>
+        <p class="contribution">Helped with construction</p>
+    </div>
+    
+    <div class="team-member">
+        <h3>Shine Htet Aung</h3>
+        <p class="contribution">Also helped with construction</p>
+    </div>
+
+    <div class="team-member">
+        <h3>Walar Kyaw</h3>
+        <p class="contribution">Bought almost all the materials</p>
+    </div>                
+</div>
+            
+    
+    <!-- Footer -->
+<footer>
+    <div class="container" style="text-align: center; padding: 20px;">
+        <img src="images/group.jpg" 
+             alt="Group Photo" 
+             style="max-width: 100%; height: auto;">
+    </div>
+</footer>
+
+<style>
+footer.footer-with-image {
+    background-image: url('images/group.jpg');
+    background-size: cover; /* or 'contain' depending on what you want */
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 150px; /* Set your desired height */
+    width: 100%;
+}
+
+footer.footer-with-image .container {
+    height: 100%;
+    /* If you want text overlay on the image, you can add it here */
+}
+</style>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Add subtle shake effect to header logo on page load
+            const logoIcon = document.querySelector('.logo i');
+            setTimeout(() => {
+                logoIcon.style.animation = 'logo-shake 10s infinite';
+            }, 1000);
+            
+            // Create additional background elements dynamically for a richer effect
+            const backgroundAnimation = document.querySelector('.background-animation');
+            
+            // Add more intensity dots
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const dot = document.createElement('div');
+                    dot.className = 'intensity-dot';
+                    
+                    // Random position
+                    const top = Math.random() * 90 + 5;
+                    const left = Math.random() * 90 + 5;
+                    
+                    dot.style.top = `${top}%`;
+                    dot.style.left = `${left}%`;
+                    dot.style.animationDelay = `${Math.random() * 3}s`;
+                    
+                    backgroundAnimation.appendChild(dot);
+                }, i * 300);
+            }
+            
+            // Add occasional stronger seismic waves
+            setInterval(() => {
+                const wave = document.createElement('div');
+                wave.className = 'seismic-wave';
+                
+                // Random position and size
+                const size = Math.random() * 200 + 100;
+                const top = Math.random() * 80 + 10;
+                const left = Math.random() * 80 + 10;
+                
+                wave.style.width = `${size}px`;
+                wave.style.height = `${size}px`;
+                wave.style.top = `${top}%`;
+                wave.style.left = `${left}%`;
+                wave.style.borderColor = `rgba(231, 76, 60, ${0.05 + Math.random() * 0.15})`;
+                wave.style.animationDuration = `${6 + Math.random() * 4}s`;
+                
+                backgroundAnimation.appendChild(wave);
+                
+                // Remove after animation completes
+                setTimeout(() => {
+                    if (wave.parentNode) {
+                        wave.parentNode.removeChild(wave);
+                    }
+                }, 10000);
+            }, 5000);
+        });
+    </script>
+</body>
 </html>
